@@ -20,6 +20,44 @@ Slide about LoRA Explain (by Nguyen Bui Ngoc Han):
 We built 4 model....
 
 
+## I.  How to run our pretrained model?
+You just download the ipybn file and run it on Google Colab or on your Jupyter Notebook.
+
+## II.  How to add LoRA to finetuining your own model?
+- Step 1: Load your model.
+
+  For example you have model like this:
+```python
+from transformers import AutoModelForCausalLM
+from transformers import AutoTokenizer
+modelName = "bigscience/bloomz-1b1" # Or whatever you want in HuggingFace
+model = AutoModelForCausalLM.from_pretrained(modelName).to(device)
+tokenizer = AutoTokenizer.from_pretrained(modelName)
+```
+  The *device* is your hardware support. You can set it automatically with this code:
+```python
+import torch
+device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+```
+
+- Step 2: Prepare dataset for Training.
+
+  For example you want to make a text-generating model for question-anwsering task, you will need a dataset that it have list of questions and anwsers.
+  You can try this dataset for practice:
+    -- [Kaggle Ecommerce FAQ Chatbot Dataset](https://www.kaggle.com/datasets/saadmakhdoom/ecommerce-faq-chatbot-dataset)
+```
+
+```
+
+- Step 3: 
+
+## II.  About datasets
+In this project web
+## IV. Result and Comparision
+
+## . Result and Comparision
+
+
 ### **Authors:**
 Nguyen Thanh Phat (phatjk)
 - Github: https://github.com/phatjkk
@@ -46,21 +84,3 @@ Nguyen Ba Ngoc
 - Github: https://github.com/bangoc123
 - Linkedin: https://www.linkedin.com/in/nbangoc
 - Email: protonxai@gmail.com
-
-## I.  How to run our pretrained model?
-
-## II.  How to add LoRA to finetuining your own model?
-- Step 1: 
-
-- Step 2: 
-```
-c
-```
-
-- Step 3: 
-
-## II.  About datasets
-In this project web
-## IV. Result and Comparision
-
-## . Result and Comparision
