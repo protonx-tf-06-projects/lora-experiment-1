@@ -10,11 +10,11 @@ This project is a part of TF06 Course from ProtonX. We use LoRA techique to impr
 
 ***Give us a star if this repo helpful to you.***
 
-Slide about LoRA Explain:
+Slide about LoRA Explain (by Nguyen Bui Ngoc Han):
 
 - [LoRA Slide](https://github.com/protonx-tf-06-projects/lora-experiment-1/blob/main/document/LoRA.pptx)
 - [LoRA Notion](https://exuberant-puppy-021.notion.site/LoRA-Low-Rank-Adaptation-of-Large-Language-Models-b671e47f984f4c5e962f3176084ea819)
-(by Nguyen Bui Ngoc Han)
+
 
 ## What did we do in this project?
 We built 4 model....
