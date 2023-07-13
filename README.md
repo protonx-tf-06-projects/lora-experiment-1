@@ -27,29 +27,74 @@ You just download the ipybn file and run it on Google Colab or on your Jupyter N
 - Step 1: Load your model.
 
   For example you have model like this:
-```python
-from transformers import AutoModelForCausalLM
-from transformers import AutoTokenizer
-modelName = "bigscience/bloomz-1b1" # Or whatever you want in HuggingFace
-model = AutoModelForCausalLM.from_pretrained(modelName).to(device)
-tokenizer = AutoTokenizer.from_pretrained(modelName)
-```
+    ```python
+    from transformers import AutoModelForCausalLM
+    from transformers import AutoTokenizer
+    modelName = "bigscience/bloomz-1b1" # Or whatever you want in HuggingFace
+    model = AutoModelForCausalLM.from_pretrained(modelName).to(device)
+    tokenizer = AutoTokenizer.from_pretrained(modelName)
+    ```
   The *device* is your hardware support. You can set it automatically with this code:
-```python
-import torch
-device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
-```
+    ```python
+    import torch
+    device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+    ```
 
 - Step 2: Prepare dataset for Training.
 
   For example you want to make a text-generating model for question-anwsering task, you will need a dataset that it have list of questions and anwsers.
   You can try this dataset for practice:
-    -- [Kaggle Ecommerce FAQ Chatbot Dataset](https://www.kaggle.com/datasets/saadmakhdoom/ecommerce-faq-chatbot-dataset)
-```
 
-```
+  + [Kaggle Ecommerce FAQ Chatbot Dataset](https://www.kaggle.com/datasets/saadmakhdoom/ecommerce-faq-chatbot-dataset)
 
-- Step 3: 
+  Get dataset from source: 
+  ```
+    !wget https://raw.githubusercontent.com/phatjkk/data/main/LLM/Ecommerce_FAQ_Chatbot_dataset.json
+  ```
+  Load dataset as HuggingFace Dataset type:
+  ```python
+    from datasets import load_dataset
+    from datasets import Dataset
+    data = load_dataset('json', data_files='Ecommerce_FAQ_Chatbot_dataset.json')
+    ds = Dataset.from_list(data["train"]["questions"][0])
+  ```
+  Merge *question* and *answer* columns into one call *prediction*:
+  ```python
+    def merge_columns(example):
+        example["prediction"] = example["question"] + " ->: " + str(example["answer"])
+        return example
+    # Map merge_columns function to dataset
+    ds = ds.map(merge_columns)
+  ```
+  Tokenizer *prediction* column:
+  ```python
+    # Tokenizer/Véc tơ hóa văn bản (Chuyển văn bản thành số để training)
+    def tokeni(example):
+        example["prediction_token"] = tokenizer(example["prediction"], return_tensors='pt', padding=True)['input_ids']
+        return example
+    # Map tokeni function to dataset
+    ds = ds.map(tokeni,batched=True)
+  ```
+- Step 3: Add LoraConfig
+  ```python
+    # Set config for LoRA 
+    from peft import LoraConfig, get_peft_model
+    config = LoraConfig(
+        r=16, #attention heads
+        lora_alpha=16, #alpha scaling
+        lora_dropout=0.05,
+        bias="none",
+        task_type="CAUSAL_LM" # set this for CLM or Seq2Seq
+    )
+    # Set peft adapter to model
+    model_lora = get_peft_model(model, config)
+  ```
+  There are some explain arguments for this code:
+    - `r`: Lora attention dimension (int).
+    - `lora_alpha`: The alpha parameter for Lora scaling.
+    - `lora_dropout`: The dropout probability for Lora layers.
+    - `bias`: Bias type for Lora. Can be 'none', 'all' or 'lora_only'
+    - `task_type`: Task you want to run
 
 ## II.  About datasets
 In this project web
