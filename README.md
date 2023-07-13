@@ -6,7 +6,7 @@ Implementation of [LoRA: Low-Rank Adaptation of Large Language Models](https://a
     <img src='https://github.com/protonx-tf-06-projects/lora-experiment-1/assets/48487157/1ae57bae-def9-4319-a6c6-8d2f8ed47165' width=400 class="center">
 </p>
 
-This project is a part of TF06 Course from ProtonX. We are trying to use LoRA techique to improve training Large Language Model.
+This project is a part of TF06 Course from ProtonX. We use LoRA techique to improve training Large Language Model (Vietnamese and English Dataset).
 
 ***Give us a star if this repo helpful to you.***
 
