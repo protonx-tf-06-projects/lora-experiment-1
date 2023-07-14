@@ -154,7 +154,24 @@ You just download the ipybn file and run it on Google Colab or on your Jupyter N
 
     ![image](https://github.com/protonx-tf-06-projects/lora-experiment-1/assets/48487157/8a8e0143-6013-48f5-83f7-ac71f8dbd0e6)
 
-- Step 5: Training model
+- Step 5: Test generate task
+
+  You can gennerate text from model like this:
+
+  ```python
+    question = "How can I create an account?"
+    prompt = question+" ->: "
+    inputs = tokenizer( question, return_tensors="pt")
+    with torch.autocast(device.type):
+        outputs = model.generate(input_ids=inputs["input_ids"].to(device), max_new_tokens=100)
+        print(tokenizer.batch_decode(outputs.detach().cpu().numpy(), skip_special_tokens=True)[0])
+  ```
+
+  Result:
+
+  ```
+  
+  ```
   
 ## II.  About datasets
 In this project web
