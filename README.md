@@ -75,7 +75,7 @@ You just download the ipybn file and run it on Google Colab or on your Jupyter N
     # Map tokeni function to dataset
     ds = ds.map(tokeni,batched=True)
   ```
-- Step 3: Add LoraConfig
+- Step 3: Add LoraConfig Adapter to model
   ```python
     # Set config for LoRA 
     from peft import LoraConfig, get_peft_model
@@ -95,7 +95,41 @@ You just download the ipybn file and run it on Google Colab or on your Jupyter N
     - `lora_dropout`: The dropout probability for Lora layers.
     - `bias`: Bias type for Lora. Can be 'none', 'all' or 'lora_only'
     - `task_type`: Task you want to run
-
+- Step 4: Training model
+  ```python
+    # Training model
+    import transformers
+    from transformers import Trainer,EarlyStoppingCallback
+    
+    class CustomTrainer(Trainer):
+        def compute_loss(self, model, inputs, return_outputs=False):
+            outputs = model(**inputs)
+            #Perplexity
+            perplexity = torch.exp(outputs.loss)
+            return (perplexity, outputs) if return_outputs else perplexity
+    trainer = CustomTrainer(
+        model=model,
+        train_dataset=ds_tt["train"]["prediction"],
+        eval_dataset=ds_tt["test"]["prediction"],
+        args=transformers.TrainingArguments(
+            per_device_train_batch_size=3,
+            num_train_epochs=1,
+            gradient_accumulation_steps=1,
+            warmup_steps=100,
+            save_total_limit=5,
+            learning_rate=2e-4,
+            fp16=True,
+            output_dir='outputs',
+            logging_steps=500,
+            evaluation_strategy="steps",
+            load_best_model_at_end = True
+        ),
+        data_collator=transformers.DataCollatorForLanguageModeling(tokenizer, mlm=False),
+        callbacks=[EarlyStoppingCallback(early_stopping_patience = 4)]
+    )
+    model.config.use_cache = True  # silence the warnings. Please re-enable for inference!
+    trainer.train()
+  ```
 ## II.  About datasets
 In this project web
 ## IV. Result and Comparision
