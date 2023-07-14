@@ -167,17 +167,20 @@ You just download the ipybn file and run it on Google Colab or on your Jupyter N
         print(tokenizer.batch_decode(outputs.detach().cpu().numpy(), skip_special_tokens=True)[0])
   ```
 
-  Result:
+  Example Result:
 
   ```
-  
+  How can I create an account? ->:  Click the "Create an account" button. Enter your email address and password. Click the "Continue" button.
   ```
   
 ## II.  About datasets
-In this project web
-## IV. Result and Comparision
+In this project we use data set from 3 source:
++ [Kaggle Ecommerce FAQ Chatbot Dataset](https://www.kaggle.com/datasets/saadmakhdoom/ecommerce-faq-chatbot-dataset)
++ [Kaggle Ecommerce FAQ Chatbot Dataset (Vietnamese)](https://github.com/phatjkk/data/blob/main/LLM/Ecommerce_FAQ_Chatbot_dataset_vi.xlsx)
++ [UIT-ViQuAD](https://paperswithcode.com/dataset/uit-viquad)
++ [NLLB_translations_Vietnamese_51k](https://github.com/phatjkk/Vietnamese_LLMs/tree/main/Generate_and_Translate_Dataset/Vietnamese_Instructions_datasets/Translation/Alpaca_52k/NLLB_1B3_results)
 
-## . Result and Comparision
+## IV. Result and Comparision
 
 
 ### **Authors:**
@@ -197,8 +200,6 @@ Nguyen Thanh Chung (Edward Nguyen)
 - Email: edwardngu96@gmail.com
 
 Pham Quynh Trang (Trang Pham)
-- Github: https://github.com/
-- Linkedin: https://www.linkedin.com/in/
 - Email: phamthiquynhtrang95@gmail.com
   
 ### **Advisors:**
