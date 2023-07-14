@@ -16,10 +16,6 @@ Slide about LoRA Explain (by Nguyen Bui Ngoc Han):
 - [LoRA Notion](https://exuberant-puppy-021.notion.site/LoRA-Low-Rank-Adaptation-of-Large-Language-Models-b671e47f984f4c5e962f3176084ea819)
 
 
-## What did we do in this project?
-We built 4 model....
-
-
 ## I.  How to run our pretrained model?
 You just download the ipybn file and run it on Google Colab or on your Jupyter Notebook.
 
