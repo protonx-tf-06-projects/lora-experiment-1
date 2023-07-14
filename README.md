@@ -112,8 +112,8 @@ You just download the ipybn file and run it on Google Colab or on your Jupyter N
         train_dataset=ds_tt["train"]["prediction"],
         eval_dataset=ds_tt["test"]["prediction"],
         args=transformers.TrainingArguments(
-            per_device_train_batch_size=3,
-            num_train_epochs=1,
+            per_device_train_batch_size=3, # batch size
+            num_train_epochs=1, # epochs
             gradient_accumulation_steps=1,
             warmup_steps=100,
             save_total_limit=5,
@@ -130,6 +130,32 @@ You just download the ipybn file and run it on Google Colab or on your Jupyter N
     model.config.use_cache = True  # silence the warnings. Please re-enable for inference!
     trainer.train()
   ```
+
+  When finish training task you can show the loss curve of train and validation:
+
+   ```python
+    trainingEpoch_loss_adam,validationEpoch_loss_adam=[],[]
+    t = 0
+    for i in trainer.state.log_history[:-1]:
+      if t == 0:
+        trainingEpoch_loss_adam.append(i["loss"])
+        t=1
+      else:
+        validationEpoch_loss_adam.append(i["eval_loss"])
+        t=0
+    from matplotlib import pyplot as plt
+    plt.plot(trainingEpoch_loss_adam, label='train_loss')
+    plt.plot(validationEpoch_loss_adam,label='val_loss')
+    plt.legend()
+    plt.show
+   ```
+
+   Example result:
+
+    ![image](https://github.com/protonx-tf-06-projects/lora-experiment-1/assets/48487157/8a8e0143-6013-48f5-83f7-ac71f8dbd0e6)
+
+- Step 5: Training model
+  
 ## II.  About datasets
 In this project web
 ## IV. Result and Comparision
