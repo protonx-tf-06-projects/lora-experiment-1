@@ -19,7 +19,7 @@ Slide about LoRA Explain (by Nguyen Bui Ngoc Han):
 
 
 ## I.  How to run our pretrained model?
-You just download the ipybn file and run it on Google Colab or on your Jupyter Notebook.
+You just download the .ipybn file and run it on Google Colab or on your Jupyter Notebook.
 
 ![image](https://github.com/protonx-tf-06-projects/lora-experiment-1/assets/48487157/3b0dfd49-18a7-4a9b-aaab-64ccde0a70f0)
 
