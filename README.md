@@ -198,11 +198,12 @@ Time compare:
     <img src='https://github.com/protonx-tf-06-projects/lora-experiment-1/assets/48487157/88da04cb-3ed5-4e3d-b6ee-00c7afe534bc' width=700 class="center">
 </p>
 
-<p align="center">
+Compare Table: 
+
 |                | LoRA  | Without LoRA |
 |----------------|-------|--------------|
 | Time  Training | ~157m | ~202m        |
-</p>
+
 So with LoRA technique, we reduce the training time **22.2%** in NLLB-57k dataset with bloomz-1b1 model.
 
 ### **Authors:**
