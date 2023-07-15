@@ -8,6 +8,8 @@ Implementation of [LoRA: Low-Rank Adaptation of Large Language Models](https://a
 
 This project is a part of TF06 Course from ProtonX. We use LoRA techique to improve training Large Language Model (Vietnamese and English Dataset).
 
+We use [Bloomz-1b1](https://huggingface.co/bigscience/bloomz-1b1) to fine tuning on English - Vietnamese datasets.
+
 ***Give us a star if this repo helpful to you.***
 
 Slide about LoRA Explain (by Nguyen Bui Ngoc Han):
@@ -171,13 +173,36 @@ You just download the ipybn file and run it on Google Colab or on your Jupyter N
   
 ## II.  About datasets
 In this project we use data set from 3 source:
-+ [Kaggle Ecommerce FAQ Chatbot Dataset](https://www.kaggle.com/datasets/saadmakhdoom/ecommerce-faq-chatbot-dataset)
++ [Kaggle Ecommerce FAQ Chatbot Dataset (English)](https://www.kaggle.com/datasets/saadmakhdoom/ecommerce-faq-chatbot-dataset)
 + [Kaggle Ecommerce FAQ Chatbot Dataset (Vietnamese)](https://github.com/phatjkk/data/blob/main/LLM/Ecommerce_FAQ_Chatbot_dataset_vi.xlsx)
 + [UIT-ViQuAD](https://paperswithcode.com/dataset/uit-viquad)
 + [NLLB_translations_Vietnamese_51k](https://github.com/phatjkk/Vietnamese_LLMs/tree/main/Generate_and_Translate_Dataset/Vietnamese_Instructions_datasets/Translation/Alpaca_52k/NLLB_1B3_results)
 
 ## IV. Result and Comparision
 
+Model result:
+
+    - NLLB + viquad Dataset (Vietnamese): (training_loss=2.1773)
+    - Ecommerce FAQ Chatbot Dataset (English): (training_loss=2.3110)
+    - Ecommerce FAQ Chatbot Dataset (Vietnamese): (training_loss=2.0299)
+
+Time compare:
+
++ Model bloomz-1b1 train data NLLB, 1 epoch (Using LoRA) (Train on V100 Colab)
+<p align="center">
+    <img src='https://github.com/protonx-tf-06-projects/lora-experiment-1/assets/48487157/b9792b09-bd1f-4455-ad6e-6ad89c54ddb3' width=700 class="center">
+</p>
+
++ Model bloomz-1b1 train data NLLB, 1 epoch (without LoRA) (Train on V100 Colab)
+<p align="center">
+    <img src='https://github.com/protonx-tf-06-projects/lora-experiment-1/assets/48487157/88da04cb-3ed5-4e3d-b6ee-00c7afe534bc' width=700 class="center">
+</p>
+
+|                | LoRA  | Without LoRA |
+|----------------|-------|--------------|
+| Time  Training | ~157m | ~202m        |
+
+So with LoRA technique, we reduce the training time **22.2%** in NLLB-57k dataset with bloomz-1b1 model.
 
 ### **Authors:**
 Nguyen Thanh Phat (phatjk)
