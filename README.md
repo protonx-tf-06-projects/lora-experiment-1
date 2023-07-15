@@ -8,8 +8,6 @@ Implementation of [LoRA: Low-Rank Adaptation of Large Language Models](https://a
 
 This project is a part of TF06 Course from ProtonX. We use LoRA techique to improve training Large Language Model.
 
-(Vietnamese and English Dataset)
-
 We use [Bloomz-1b1](https://huggingface.co/bigscience/bloomz-1b1) to fine tuning on English - Vietnamese datasets.
 
 ***Give us a star if this repo helpful to you.***
