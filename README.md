@@ -55,45 +55,45 @@ Live demo (Click icon below to run in Colab):
 
   Get dataset from source: 
   ```
-    !wget https://raw.githubusercontent.com/phatjkk/data/main/LLM/Ecommerce_FAQ_Chatbot_dataset.json
+  !wget https://raw.githubusercontent.com/phatjkk/data/main/LLM/Ecommerce_FAQ_Chatbot_dataset.json
   ```
   Load dataset as HuggingFace Dataset type:
   ```python
-    from datasets import load_dataset
-    from datasets import Dataset
-    data = load_dataset('json', data_files='Ecommerce_FAQ_Chatbot_dataset.json')
-    ds = Dataset.from_list(data["train"]["questions"][0])
+  from datasets import load_dataset
+  from datasets import Dataset
+  data = load_dataset('json', data_files='Ecommerce_FAQ_Chatbot_dataset.json')
+  ds = Dataset.from_list(data["train"]["questions"][0])
   ```
   Merge *question* and *answer* columns into one call *prediction*:
   ```python
-    def merge_columns(example):
-        example["prediction"] = example["question"] + " ->: " + str(example["answer"])
-        return example
-    # Map merge_columns function to dataset
-    ds = ds.map(merge_columns)
+  def merge_columns(example):
+    example["prediction"] = example["question"] + " ->: " + str(example["answer"])
+    return example
+  # Map merge_columns function to dataset
+  ds = ds.map(merge_columns)
   ```
   Tokenizer *prediction* column:
   ```python
-    # Tokenizer/Véc tơ hóa văn bản (Chuyển văn bản thành số để training)
-    def tokeni(example):
-        example["prediction_token"] = tokenizer(example["prediction"], return_tensors='pt', padding=True)['input_ids']
-        return example
-    # Map tokeni function to dataset
-    ds = ds.map(tokeni,batched=True)
+  # Tokenizer/Véc tơ hóa văn bản (Chuyển văn bản thành số để training)
+  def tokeni(example):
+    example["prediction_token"] = tokenizer(example["prediction"], return_tensors='pt', padding=True)['input_ids']
+    return example
+  # Map tokeni function to dataset
+  ds = ds.map(tokeni,batched=True)
   ```
 - Step 3: Add LoraConfig Adapter to model
   ```python
-    # Set config for LoRA 
-    from peft import LoraConfig, get_peft_model
-    config = LoraConfig(
+  # Set config for LoRA 
+  from peft import LoraConfig, get_peft_model
+  config = LoraConfig(
         r=16, #attention heads
         lora_alpha=16, #alpha scaling
         lora_dropout=0.05,
         bias="none",
         task_type="CAUSAL_LM" # set this for CLM or Seq2Seq
-    )
-    # Set peft adapter to model
-    model_lora = get_peft_model(model, config)
+  )
+  # Set peft adapter to model
+  model_lora = get_peft_model(model, config)
   ```
   There are some explain arguments for this code:
     - `r`: Lora attention dimension (int).
@@ -103,57 +103,57 @@ Live demo (Click icon below to run in Colab):
     - `task_type`: Task you want to run
 - Step 4: Training model
   ```python
-    # Training model
-    import transformers
-    from transformers import Trainer,EarlyStoppingCallback
+  # Training model
+  import transformers
+  from transformers import Trainer,EarlyStoppingCallback
     
-    class CustomTrainer(Trainer):
-        def compute_loss(self, model, inputs, return_outputs=False):
-            outputs = model(**inputs)
-            #Perplexity
-            perplexity = torch.exp(outputs.loss)
-            return (perplexity, outputs) if return_outputs else perplexity
-    trainer = CustomTrainer(
-        model=model,
-        train_dataset=ds_tt["train"]["prediction"],
-        eval_dataset=ds_tt["test"]["prediction"],
-        args=transformers.TrainingArguments(
-            per_device_train_batch_size=3, # batch size
-            num_train_epochs=1, # epochs
-            gradient_accumulation_steps=1,
-            warmup_steps=100,
-            save_total_limit=5,
-            learning_rate=2e-4,
-            fp16=True,
-            output_dir='outputs',
-            logging_steps=500,
-            evaluation_strategy="steps",
-            load_best_model_at_end = True
+  class CustomTrainer(Trainer):
+    def compute_loss(self, model, inputs, return_outputs=False):
+        outputs = model(**inputs)
+        #Perplexity
+        perplexity = torch.exp(outputs.loss)
+        return (perplexity, outputs) if return_outputs else perplexity
+  trainer = CustomTrainer(
+    model=model,
+    train_dataset=ds_tt["train"]["prediction"],
+    eval_dataset=ds_tt["test"]["prediction"],
+    args=transformers.TrainingArguments(
+        per_device_train_batch_size=3, # batch size
+        num_train_epochs=1, # epochs
+        gradient_accumulation_steps=1,
+        warmup_steps=100,
+        save_total_limit=5,
+        learning_rate=2e-4,
+        fp16=True,
+        output_dir='outputs',
+        logging_steps=500,
+        evaluation_strategy="steps",
+        load_best_model_at_end = True
         ),
         data_collator=transformers.DataCollatorForLanguageModeling(tokenizer, mlm=False),
         callbacks=[EarlyStoppingCallback(early_stopping_patience = 4)]
-    )
-    model.config.use_cache = True  # silence the warnings. Please re-enable for inference!
-    trainer.train()
+  )
+  model.config.use_cache = True  # silence the warnings. Please re-enable for inference!
+  trainer.train()
   ```
 
   When finish training task you can show the loss curve of train and validation:
 
    ```python
-    trainingEpoch_loss_adam,validationEpoch_loss_adam=[],[]
-    t = 0
-    for i in trainer.state.log_history[:-1]:
+   trainingEpoch_loss_adam,validationEpoch_loss_adam=[],[]
+   t = 0
+   for i in trainer.state.log_history[:-1]:
       if t == 0:
         trainingEpoch_loss_adam.append(i["loss"])
         t=1
       else:
         validationEpoch_loss_adam.append(i["eval_loss"])
         t=0
-    from matplotlib import pyplot as plt
-    plt.plot(trainingEpoch_loss_adam, label='train_loss')
-    plt.plot(validationEpoch_loss_adam,label='val_loss')
-    plt.legend()
-    plt.show
+   from matplotlib import pyplot as plt
+   plt.plot(trainingEpoch_loss_adam, label='train_loss')
+   plt.plot(validationEpoch_loss_adam,label='val_loss')
+   plt.legend()
+   plt.show
    ```
 
    Example result:
@@ -165,12 +165,12 @@ Live demo (Click icon below to run in Colab):
   You can gennerate text from model like this:
 
   ```python
-    question = "How can I create an account?"
-    prompt = question+" ->: "
-    inputs = tokenizer( question, return_tensors="pt")
-    with torch.autocast(device.type):
-        outputs = model.generate(input_ids=inputs["input_ids"].to(device), max_new_tokens=100)
-        print(tokenizer.batch_decode(outputs.detach().cpu().numpy(), skip_special_tokens=True)[0])
+  question = "How can I create an account?"
+  prompt = question+" ->: "
+  inputs = tokenizer( question, return_tensors="pt")
+  with torch.autocast(device.type):
+    outputs = model.generate(input_ids=inputs["input_ids"].to(device), max_new_tokens=100)
+    print(tokenizer.batch_decode(outputs.detach().cpu().numpy(), skip_special_tokens=True)[0])
   ```
 
   Example Result:
