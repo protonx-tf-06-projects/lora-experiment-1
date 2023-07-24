@@ -218,7 +218,7 @@ So with LoRA technique, we reduce the training time **22.2%** in NLLB-57k datase
 Nguyen Thanh Phat (phatjk)
 - Github: https://github.com/phatjkk
 - Linkedin: https://www.linkedin.com/in/phatjk
-- Email: autoittutorial1234@gmail.com
+- Email: phatjk@outlook.com.vn
 
 Nguyen Bui Ngoc Han (Nguyễn Hân)
 - Github: https://github.com/nbngochan
