@@ -162,7 +162,7 @@ Live demo (Click icon below to run in Colab):
 </p>
 - Step 5: Test generate task
 
-  You can gennerate text from model like this:
+  You can generate text from model like this:
 
   ```python
   question = "How can I create an account?"
