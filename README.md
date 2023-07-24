@@ -180,7 +180,7 @@ Live demo (Click icon below to run in Colab):
   ```
   
 ## III.  About datasets
-In this project we use data set from 3 source:
+In this project we use datasets from 3 sources:
 + [Kaggle Ecommerce FAQ Chatbot Dataset (English)](https://www.kaggle.com/datasets/saadmakhdoom/ecommerce-faq-chatbot-dataset)
 + [Kaggle Ecommerce FAQ Chatbot Dataset (Vietnamese)](https://github.com/phatjkk/data/blob/main/LLM/Ecommerce_FAQ_Chatbot_dataset_vi.xlsx)
 + [UIT-ViQuAD](https://paperswithcode.com/dataset/uit-viquad)
