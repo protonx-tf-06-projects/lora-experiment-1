@@ -3,7 +3,7 @@ Implementation of [LoRA: Low-Rank Adaptation of Large Language Models](https://a
 
 
 <p align="center">
-    <img src='https://github.com/protonx-tf-06-projects/lora-experiment-1/assets/48487157/1ae57bae-def9-4319-a6c6-8d2f8ed47165' width=400 class="center">
+    <img src='https://github.com/protonx-tf-06-projects/lora-experiment-1/blob/main/assets/1.png?raw=true' width=400 class="center">
 </p>
 
 This project is a part of TF06 Course from ProtonX. We use LoRA techique to improve training Large Language Model.
@@ -21,7 +21,7 @@ Slide about LoRA Explain (by Nguyen Bui Ngoc Han):
 ## I.  How to run our pretrained model?
 You just download the .ipybn file and run it on Google Colab or on your Jupyter Notebook.
 
-![image](https://github.com/protonx-tf-06-projects/lora-experiment-1/assets/48487157/3b0dfd49-18a7-4a9b-aaab-64ccde0a70f0)
+![image](https://github.com/protonx-tf-06-projects/lora-experiment-1/blob/main/assets/2.png?raw=true)
 
 
 Live demo (Click icon below to run in Colab):
@@ -158,7 +158,7 @@ Live demo (Click icon below to run in Colab):
 
    Example result:
 <p align="center">
-    <img src='https://github.com/protonx-tf-06-projects/lora-experiment-1/assets/48487157/8a8e0143-6013-48f5-83f7-ac71f8dbd0e6' width=700 class="center">
+    <img src='https://github.com/protonx-tf-06-projects/lora-experiment-1/blob/main/assets/3.png?raw=true' width=700 class="center">
 </p>
 - Step 5: Test generate task
 
@@ -198,12 +198,12 @@ Time compare:
 
 + Model bloomz-1b1 train data NLLB, 1 epoch (Using LoRA) (Train on V100 Colab)
 <p align="center">
-    <img src='https://github.com/protonx-tf-06-projects/lora-experiment-1/assets/48487157/b9792b09-bd1f-4455-ad6e-6ad89c54ddb3' width=700 class="center">
+    <img src='https://github.com/protonx-tf-06-projects/lora-experiment-1/blob/main/assets/4.png?raw=true' width=700 class="center">
 </p>
 
 + Model bloomz-1b1 train data NLLB, 1 epoch (without LoRA) (Train on V100 Colab)
 <p align="center">
-    <img src='https://github.com/protonx-tf-06-projects/lora-experiment-1/assets/48487157/88da04cb-3ed5-4e3d-b6ee-00c7afe534bc' width=700 class="center">
+    <img src='https://github.com/protonx-tf-06-projects/lora-experiment-1/blob/main/assets/5.png?raw=true' width=700 class="center">
 </p>
 
 Compare Table: 
