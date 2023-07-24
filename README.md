@@ -64,7 +64,7 @@ Live demo (Click icon below to run in Colab):
   data = load_dataset('json', data_files='Ecommerce_FAQ_Chatbot_dataset.json')
   ds = Dataset.from_list(data["train"]["questions"][0])
   ```
-  Merge *question* and *answer* columns into one call *prediction*:
+  Merge *question* and *answer* columns into one called *prediction*:
   ```python
   def merge_columns(example):
     example["prediction"] = example["question"] + " ->: " + str(example["answer"])
@@ -186,7 +186,7 @@ In this project we use data set from 3 source:
 + [UIT-ViQuAD](https://paperswithcode.com/dataset/uit-viquad)
 + [NLLB_translations_Vietnamese_51k](https://github.com/phatjkk/Vietnamese_LLMs/tree/main/Generate_and_Translate_Dataset/Vietnamese_Instructions_datasets/Translation/Alpaca_52k/NLLB_1B3_results)
 
-## IV. Result and Comparision
+## III. Result and Comparision
 
 Model result:
 
